@@ -33,4 +33,12 @@ public final class FileUtils {
             return (T) output.readObject();
         }
     }
+
+    public static boolean delete(String filePath) {
+        var file = new File(filePath);
+        if (file.isFile()) {
+            return file.delete();
+        }
+        return false;
+    }
 }

@@ -5,12 +5,13 @@ import java.util.Set;
 
 import br.net.ricardotakemura.search.presenter.SearchPresenter;
 import br.net.ricardotakemura.search.presenter.impl.SearchPresenterImpl;
+import br.net.ricardotakemura.search.util.StringUtils;
 import br.net.ricardotakemura.search.view.SearchView;
 
 public class ConsoleSearchViewImpl implements SearchView {
 
     private String words;
-    private SearchPresenter searchPresenter;
+    private final SearchPresenter searchPresenter;
 
     public ConsoleSearchViewImpl() {
         searchPresenter = new SearchPresenterImpl(this);
@@ -18,11 +19,11 @@ public class ConsoleSearchViewImpl implements SearchView {
 
     public void start(String... args) {
         if (args.length == 2) {
-            if ("--createindex".equals(args[0]) && args[1] != null && !args[1].trim().isEmpty()) {
+            if ("--createindex".equals(args[0]) && StringUtils.isNotBlank(args[1])) {
                 System.out.println("Criando arquivo de indice...");
                 searchPresenter.createIndexes(new File(args[1]));
             }
-        } else if (args.length == 1 && args[0] != null && !args[0].trim().isEmpty()) {
+        } else if (args.length == 1 && StringUtils.isNotBlank(args[0])) {
             searchPresenter.loadIndexes();
             words = args[0];
             searchPresenter.search(words);

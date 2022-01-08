@@ -7,5 +7,5 @@ public interface SearchModel {
 
     void loadIndexes() throws Exception;
     void createIndexes(File dataDir) throws Exception;
-    Set<File> search(String[] words);
+    Set<File> search(String... words);
 }
