@@ -5,7 +5,7 @@ import java.util.Set;
 
 public interface SearchModel {
 
-    void load() throws Exception;
-    void createIndexes() throws Exception;
+    void loadIndexes() throws Exception;
+    void createIndexes(File dataDir) throws Exception;
     Set<File> search(String[] words);
 }

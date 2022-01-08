@@ -2,54 +2,56 @@ package br.net.ricardotakemura.search.model.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import br.net.ricardotakemura.search.model.SearchModel;
 import br.net.ricardotakemura.search.util.FileUtils;
 
-public class TreeMapSearchModelImpl implements SearchModel {
+public class MapSearchModelImpl implements SearchModel {
 
-    protected TreeMap<String, TreeSet<File>> data;
-    private File dataFile = new File("data.index");
+    protected HashMap<String, TreeSet<File>> data;
+    private static final File INDEX_FILE = new File("data.index");
 
-    public void load() throws IOException, ClassNotFoundException {
-        data = FileUtils.readFileData(dataFile);
+    public void loadIndexes() throws IOException, ClassNotFoundException {
+        data = FileUtils.readFileData(INDEX_FILE);
     }
 
-    public void createIndexes() throws IOException {
-        data = new TreeMap<>();
-        var dir = new File("../data");
-        if (dir.isDirectory()) {
-            for (var file: dir.listFiles()) {
+    public void createIndexes(File dataDir) throws IOException {
+        data = new HashMap<>();
+        if (dataDir.isDirectory()) {
+            for (var file: dataDir.listFiles()) {
                 if (FileUtils.canRead(file)) {
                     createDataByFile(data, file);
                 }
             }
         }
-        FileUtils.createFileData(dataFile, data);
+        FileUtils.createFileData(INDEX_FILE, data);
     }
     
     public Set<File> search(String[] words) {
         var files = new TreeSet<File>();
         for (var word: words) {
+            word = word.toLowerCase();
             if (!data.containsKey(word)) {
-                files.clear();
+                return new TreeSet<File>();
+            }
+            var items = data.get(word);
+            files = files.isEmpty() ? new TreeSet<>(items) : 
+                new TreeSet<>(items.stream().filter(files::contains).collect(Collectors.toSet()));
+            if (files.isEmpty()) {
                 return files;
-            } else {
-                var items = data.get(word);
-                files = files.isEmpty() ? new TreeSet<>(items) : 
-                    new TreeSet<>(items.stream().filter(files::contains).collect(Collectors.toSet()));
             }
         }
         return files;
     }
 
-    private void createDataByFile(TreeMap<String, TreeSet<File>> data, File file) throws IOException {
+    private void createDataByFile(HashMap<String, TreeSet<File>> data, File file) throws IOException {
         var str = FileUtils.readFully(file);
         for (var key: str.split(" ")) {
+            key = key.toLowerCase();
             if (data.containsKey(key)) {
                 data.get(key).add(file);
             } else {
