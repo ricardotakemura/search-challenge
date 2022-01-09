@@ -13,36 +13,12 @@ import java.io.File;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class SearchPresenterTest {
 
     private SearchPresenter presenter;
     private Configuration configuration;
-
-    static abstract class MockSearchView implements SearchView {
-
-        @Override
-        public void start(String... args)  {
-            //DO NOTHING
-        }
-
-        @Override
-        public void onCreatedIndex() {
-            //DO NOTHING
-        }
-
-        @Override
-        public void onLoadedIndex() {
-            //DO NOTHING
-        }
-
-        @Override
-        public void onFailedIndex(Exception e) {
-            fail(e);
-        }
-    }
 
     @BeforeAll
     void setUp() {
@@ -205,6 +181,29 @@ public class SearchPresenterTest {
             fail("Expected exception");
         } catch (Exception e) {
             assertEquals(e.getClass(), NullPointerException.class);
+        }
+    }
+
+    static abstract class MockSearchView implements SearchView {
+
+        @Override
+        public void start(String... args) {
+            //DO NOTHING
+        }
+
+        @Override
+        public void onCreatedIndex() {
+            //DO NOTHING
+        }
+
+        @Override
+        public void onLoadedIndex() {
+            //DO NOTHING
+        }
+
+        @Override
+        public void onFailedIndex(Exception e) {
+            fail(e);
         }
     }
 

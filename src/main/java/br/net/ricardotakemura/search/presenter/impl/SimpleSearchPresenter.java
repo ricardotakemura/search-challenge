@@ -1,36 +1,36 @@
 package br.net.ricardotakemura.search.presenter.impl;
 
-import java.io.File;
-
 import br.net.ricardotakemura.search.model.SearchModel;
-import br.net.ricardotakemura.search.model.impl.MapSearchModel;
 import br.net.ricardotakemura.search.presenter.SearchPresenter;
 import br.net.ricardotakemura.search.util.Log;
 import br.net.ricardotakemura.search.view.SearchView;
+
+import java.io.File;
 
 /**
  * Classe de apresentação (implementação simples)
  */
 public class SimpleSearchPresenter implements SearchPresenter {
 
-    private SearchView searchView;
     private final SearchModel searchModel;
     private final Log log;
+    private SearchView searchView;
 
     /**
-     * Construtor default
+     * Construtor (<i>default</i>)
      */
     public SimpleSearchPresenter() {
         this(null);
     }
 
     /**
-     * Construtor que recebe o objeto de visão (SearchView) para integração
-     * @param searchView Objeto de visão (SearchView)
+     * Construtor que recebe o objeto de visão (<i>SearchView</i>) para integração
+     *
+     * @param searchView Objeto de visão (<i>SearchView</i>)
      */
     public SimpleSearchPresenter(SearchView searchView) {
         this.searchView = searchView;
-        this.searchModel = new MapSearchModel();
+        this.searchModel = SearchModel.getInstance();
         this.log = Log.getLog(SimpleSearchPresenter.class);
     }
 
@@ -43,7 +43,7 @@ public class SimpleSearchPresenter implements SearchPresenter {
     }
 
     /**
-     * @see SearchPresenter#search(String) 
+     * @see SearchPresenter#search(String)
      */
     @Override
     public void search(String words) {
@@ -91,7 +91,7 @@ public class SimpleSearchPresenter implements SearchPresenter {
             log.error("Erro ao executar o loadIndexes", e);
             if (searchView != null) {
                 searchView.onFailedIndex(e);
-            }            
+            }
         }
     }
 }

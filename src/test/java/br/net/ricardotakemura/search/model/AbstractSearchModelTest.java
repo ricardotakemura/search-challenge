@@ -1,7 +1,5 @@
 package br.net.ricardotakemura.search.model;
 
-import java.io.File;
-
 import br.net.ricardotakemura.search.util.Configuration;
 import br.net.ricardotakemura.search.util.FileUtils;
 import org.junit.jupiter.api.AfterAll;
@@ -10,12 +8,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 
-import br.net.ricardotakemura.search.model.impl.MapSearchModel;
+import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestInstance(Lifecycle.PER_CLASS)
-public class SearchModelTest {
+public abstract class AbstractSearchModelTest {
 
     private SearchModel model;
     private Configuration configuration;
@@ -23,10 +22,12 @@ public class SearchModelTest {
     @BeforeAll
     void setUp() throws Exception {
         configuration = Configuration.getInstance();
-        model = new MapSearchModel();
+        model = getSearchModel();
         model.createIndexes(new File(getClass().getResource("/data").getFile()));
         model.loadIndexes();
     }
+
+    abstract SearchModel getSearchModel();
 
     @AfterAll
     void tearDown() {

@@ -1,30 +1,30 @@
 package br.net.ricardotakemura.search.view.impl;
 
-import java.io.File;
-import java.util.Set;
-
 import br.net.ricardotakemura.search.presenter.SearchPresenter;
 import br.net.ricardotakemura.search.presenter.impl.SimpleSearchPresenter;
 import br.net.ricardotakemura.search.util.StringUtils;
 import br.net.ricardotakemura.search.view.SearchView;
+
+import java.io.File;
+import java.util.Set;
 
 /**
  * Classe de visão do sistema via linha de comando
  */
 public class ConsoleSearchView implements SearchView {
 
-    private String words;
     private final SearchPresenter searchPresenter;
+    private String words;
 
     /**
-     * Construtor (default)
+     * Construtor (<i>default</i>)
      */
     public ConsoleSearchView() {
         searchPresenter = new SimpleSearchPresenter(this);
     }
 
     /**
-     * @see SearchView#start(String...) 
+     * @see SearchView#start(String...)
      */
     @Override
     public void start(String... args) {
@@ -50,6 +50,10 @@ public class ConsoleSearchView implements SearchView {
     public void onSearchResult(Set<File> result) {
         if (result.isEmpty()) {
             System.out.printf("Não foram encontradas ocorrências pelo termo \"%s\".\n", words);
+        } else if (result.size() == 1) {
+            System.out.printf("Foi encontrada %d ocorrência pelo termo \"%s\".\n", result.size(), words);
+            System.out.printf("O arquivo que possui \"%s\" é:\n", words);
+            result.forEach(it -> System.out.println(it.getPath()));
         } else {
             System.out.printf("Foram encontradas %d ocorrências pelo termo \"%s\".\n", result.size(), words);
             System.out.printf("Os arquivos que possuem \"%s\" são:\n", words);
@@ -66,7 +70,7 @@ public class ConsoleSearchView implements SearchView {
     }
 
     /**
-     * @see SearchView#onLoadedIndex() 
+     * @see SearchView#onLoadedIndex()
      */
     @Override
     public void onLoadedIndex() {

@@ -1,5 +1,8 @@
 package br.net.ricardotakemura.search.model;
 
+import br.net.ricardotakemura.search.model.impl.MapSearchModel;
+import br.net.ricardotakemura.search.util.Configuration;
+
 import java.io.File;
 import java.util.Set;
 
@@ -9,7 +12,22 @@ import java.util.Set;
 public interface SearchModel {
 
     /**
+     * Obtém uma instância de <i>SearchModel</i> (configurável)
+     *
+     * @return Instância de <i>SearchModel</i>
+     */
+    static SearchModel getInstance() {
+        try {
+            var modelClassName = Configuration.getInstance().getProperty("application.model.class");
+            return (SearchModel) Class.forName(modelClassName).getConstructor().newInstance();
+        } catch (Exception e) {
+            return new MapSearchModel();
+        }
+    }
+
+    /**
      * Cria o arquivo de indices
+     *
      * @param dataDir Diretório dos arquivos a serem indexados
      * @throws Exception Exceção genérica (erro)
      */
@@ -17,12 +35,14 @@ public interface SearchModel {
 
     /**
      * Carrega o arquivo de indices
+     *
      * @throws Exception Exceção genérica (erro)
      */
     void loadIndexes() throws Exception;
 
     /**
      * Busca os arquivos através das palavras passadas por parâmetro (conteúdo)
+     *
      * @param words Lista de palavras (array)
      * @return Lista (<i>java.util.Set</i>) de arquivos que contém estas palavras (<i>AND</i>)
      */

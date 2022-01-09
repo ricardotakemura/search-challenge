@@ -8,9 +8,8 @@ import java.util.Properties;
  */
 public final class Configuration {
 
-    private final Properties properties;
-
     private static Configuration instance;
+    private final Properties properties;
 
     private Configuration() {
         properties = new Properties();
@@ -23,6 +22,7 @@ public final class Configuration {
 
     /**
      * Obtém uma instância desta classe
+     *
      * @return Instância desta classe
      */
     public static Configuration getInstance() {
@@ -34,6 +34,7 @@ public final class Configuration {
 
     /**
      * Obtém o valor de uma propriedade através da sua chave que está no arquivo de resource "application.properties"
+     *
      * @param key Nome da chave
      * @return Valor da propriedade
      */
