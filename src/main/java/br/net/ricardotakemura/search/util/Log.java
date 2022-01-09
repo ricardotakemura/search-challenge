@@ -25,20 +25,13 @@ public final class Log {
 
     public void debug(String str) {
         if (TRUE.equals(configuration.getProperty("application.log.enabled"))) {
-            System.out.println(new Date() + " " + clazz.getName() + " [DEBUG]" + str);
-        }
-    }
-
-    public void warn(String str, Exception e) {
-        if (TRUE.equals(configuration.getProperty("application.log.enabled"))) {
-            System.out.println(new Date() + " " + clazz.getName() + " [WARN]" + str + ": " + e.getMessage());
-            e.printStackTrace(System.out);
+            System.out.println("[DEBUG] " + new Date() + " " + clazz.getName() + " - " + str);
         }
     }
 
     public void error(String str, Exception e) {
         if (TRUE.equals(configuration.getProperty("application.log.enabled"))) {
-            System.err.println(new Date() + " " + clazz.getName() + " [ERROR]" + str + ": " + e.getMessage());
+            System.err.println("[ERROR] " + new Date() + " " + clazz.getName() + " - " + str + ": " + e.getMessage());
             e.printStackTrace(System.out);
         }
     }

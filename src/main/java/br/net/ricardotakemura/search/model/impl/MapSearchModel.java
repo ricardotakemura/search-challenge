@@ -12,12 +12,12 @@ import br.net.ricardotakemura.search.util.Configuration;
 import br.net.ricardotakemura.search.util.FileUtils;
 import br.net.ricardotakemura.search.util.StringUtils;
 
-public class MapSearchModelImpl implements SearchModel {
+public class MapSearchModel implements SearchModel {
 
     private HashMap<String, TreeSet<File>> data;
     private final File indexFile;
 
-    public MapSearchModelImpl() {
+    public MapSearchModel() {
         var configuration = Configuration.getInstance();
         indexFile = new File(configuration.getProperty("application.data.index.file"));
     }
@@ -44,18 +44,17 @@ public class MapSearchModelImpl implements SearchModel {
             return new TreeSet<>();
         }
         for (var word : words) {
-            if (StringUtils.isBlank(word)) {
-                return new TreeSet<>();
-            }
-            word = word.trim().toLowerCase();
-            if (!data.containsKey(word)) {
-                return new TreeSet<>();
-            }
-            var items = data.get(word);
-            files = files.isEmpty() ? new TreeSet<>(items) :
-                    new TreeSet<>(items.stream().filter(files::contains).collect(Collectors.toSet()));
-            if (files.isEmpty()) {
-                return files;
+            if (!StringUtils.isBlank(word)) {
+                word = word.trim().toLowerCase();
+                if (!data.containsKey(word)) {
+                    return new TreeSet<>();
+                }
+                var items = data.get(word);
+                files = files.isEmpty() ? new TreeSet<>(items) :
+                        new TreeSet<>(items.stream().filter(files::contains).collect(Collectors.toSet()));
+                if (files.isEmpty()) {
+                    return files;
+                }
             }
         }
         return files;

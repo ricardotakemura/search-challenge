@@ -3,16 +3,16 @@ package br.net.ricardotakemura.search.view;
 import java.io.File;
 import java.util.Set;
 
-import br.net.ricardotakemura.search.view.impl.ConsoleSearchViewImpl;
+import br.net.ricardotakemura.search.view.impl.ConsoleSearchView;
 
 public interface SearchView {
-    void start(String... args);
-    void onSearchResult(Set<File> result);
     void onCreatedIndex();
-    void onLoadedIndex();
     void onFailedIndex(Exception e);
+    void onLoadedIndex();
+    void onSearchResult(Set<File> result);
+    void start(String... args);
 
     static SearchView getInstance() {
-        return new ConsoleSearchViewImpl();
+        return new ConsoleSearchView();
     }
 }

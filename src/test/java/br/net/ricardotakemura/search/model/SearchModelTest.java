@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 
-import br.net.ricardotakemura.search.model.impl.MapSearchModelImpl;
+import br.net.ricardotakemura.search.model.impl.MapSearchModel;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,7 +23,7 @@ public class SearchModelTest {
     @BeforeAll
     void setUp() throws Exception {
         configuration = Configuration.getInstance();
-        model = new MapSearchModelImpl();
+        model = new MapSearchModel();
         model.createIndexes(new File(getClass().getResource("/data").getFile()));
         model.loadIndexes();
     }
@@ -34,10 +34,9 @@ public class SearchModelTest {
     }
 
     @Test
-    void test_search_with_single_result() {
+    void test_search_with_one_result() {
         var result = model.search("hello");
         assertEquals(1, result.size());
-        assertFalse(result.stream().anyMatch(it -> it.getPath().contains("alo_mundo.txt")));
         assertTrue(result.stream().anyMatch(it -> it.getPath().contains("hello_world.txt")));
     }
 
@@ -114,14 +113,16 @@ public class SearchModelTest {
     }
 
     @Test
-    void test_search_with_null_argument_and_valid_argument_and_no_result() {
+    void test_search_with_null_argument_and_valid_argument_and_one_result() {
         var result = model.search(null, "hello");
-        assertEquals(0, result.size());
+        assertEquals(1, result.size());
+        assertTrue(result.stream().anyMatch(it -> it.getPath().contains("hello_world.txt")));
     }
 
     @Test
-    void test_search_with_valid_argument_and_null_argument_and_no_result() {
+    void test_search_with_valid_argument_and_null_argument_and_one_result() {
         var result = model.search("hello", null);
-        assertEquals(0, result.size());
+        assertEquals(1, result.size());
+        assertTrue(result.stream().anyMatch(it -> it.getPath().contains("hello_world.txt")));
     }
 }

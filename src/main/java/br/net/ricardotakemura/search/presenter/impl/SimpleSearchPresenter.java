@@ -3,23 +3,33 @@ package br.net.ricardotakemura.search.presenter.impl;
 import java.io.File;
 
 import br.net.ricardotakemura.search.model.SearchModel;
-import br.net.ricardotakemura.search.model.impl.MapSearchModelImpl;
+import br.net.ricardotakemura.search.model.impl.MapSearchModel;
 import br.net.ricardotakemura.search.presenter.SearchPresenter;
 import br.net.ricardotakemura.search.util.Log;
 import br.net.ricardotakemura.search.view.SearchView;
 
-public class SearchPresenterImpl implements SearchPresenter {
+public class SimpleSearchPresenter implements SearchPresenter {
 
-    private final SearchView searchView;
+    private SearchView searchView;
     private final SearchModel searchModel;
     private final Log log;
 
-    public SearchPresenterImpl(SearchView searchView) {
+    public SimpleSearchPresenter(SearchView searchView) {
         this.searchView = searchView;
-        this.searchModel = new MapSearchModelImpl();
-        this.log = Log.getLog(SearchPresenterImpl.class);
+        this.searchModel = new MapSearchModel();
+        this.log = Log.getLog(SimpleSearchPresenter.class);
     }
 
+    public SimpleSearchPresenter() {
+        this(null);
+    }
+
+    @Override
+    public void setView(SearchView view) {
+        this.searchView = view;
+    }
+
+    @Override
     public void search(String words) {
         var start = System.currentTimeMillis();
         var result = searchModel.search(words.split(" "));
@@ -29,11 +39,12 @@ public class SearchPresenterImpl implements SearchPresenter {
         }
     }
 
+    @Override
     public void createIndexes(File dataDir) {
         try {
             var start = System.currentTimeMillis();
             searchModel.createIndexes(dataDir);
-            log.debug("Tempo de execução ao criar arquivo de indice: " + (System.currentTimeMillis() - start) + "ms");
+            log.debug("Tempo de execução ao criar arquivo de índices: " + (System.currentTimeMillis() - start) + "ms");
             if (searchView != null) {
                 searchView.onCreatedIndex();
             }
@@ -45,11 +56,12 @@ public class SearchPresenterImpl implements SearchPresenter {
         }
     }
 
+    @Override
     public void loadIndexes() {
         try {
             var start = System.currentTimeMillis();
             searchModel.loadIndexes();
-            log.debug("Tempo de execução ao criar arquivo de indice: " + (System.currentTimeMillis() - start) + "ms");
+            log.debug("Tempo de execução ao carregar arquivo de índices: " + (System.currentTimeMillis() - start) + "ms");
             if (searchView != null) {
                 searchView.onLoadedIndex();
             }
