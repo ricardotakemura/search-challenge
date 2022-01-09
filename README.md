@@ -68,3 +68,6 @@ open target/site/apidocs/index.html
 Padrão de arquitetura:
 - MVP (Model View Presenter)
 
+Diagrama:
+
+![Diagrama](img/diagrama.png)
