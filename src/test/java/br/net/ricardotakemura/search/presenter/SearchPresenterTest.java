@@ -91,7 +91,6 @@ public class SearchPresenterTest {
             }
         });
         presenter.search("teste");
-
     }
 
     @Test

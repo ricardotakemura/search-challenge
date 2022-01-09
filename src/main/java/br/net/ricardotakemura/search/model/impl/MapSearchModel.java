@@ -12,20 +12,32 @@ import br.net.ricardotakemura.search.util.Configuration;
 import br.net.ricardotakemura.search.util.FileUtils;
 import br.net.ricardotakemura.search.util.StringUtils;
 
+/**
+ * Classe de modelo do sistema que usa arquivo binário de objetos e a estrutura de hash (<i>java.util.Map</i>) como indexador
+ */
 public class MapSearchModel implements SearchModel {
 
     private HashMap<String, TreeSet<File>> data;
     private final File indexFile;
 
+    /**
+     * Construtor default
+     */
     public MapSearchModel() {
         var configuration = Configuration.getInstance();
         indexFile = new File(configuration.getProperty("application.data.index.file"));
     }
 
+    /**
+     * @see SearchModel#loadIndexes() 
+     */
     public void loadIndexes() throws IOException, ClassNotFoundException {
         data = FileUtils.readFileData(indexFile);
     }
 
+    /**
+     * @see SearchModel#createIndexes(File) 
+     */
     public void createIndexes(File dataDir) throws IOException {
         data = new HashMap<>();
         if (dataDir.isDirectory() && dataDir.listFiles() != null) {
@@ -37,7 +49,10 @@ public class MapSearchModel implements SearchModel {
         }
         FileUtils.createFileData(indexFile, data);
     }
-    
+
+    /**
+     * @see SearchModel#search(String...)
+     */
     public Set<File> search(String... words) {
         var files = new TreeSet<File>();
         if (words == null) {

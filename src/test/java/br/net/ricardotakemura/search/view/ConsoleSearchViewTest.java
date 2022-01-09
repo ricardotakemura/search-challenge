@@ -109,7 +109,7 @@ public class ConsoleSearchViewTest {
     }
 
     @Test
-    void test_search_with_success() {
+    void test_search_with_results_success() {
         var consoleSearchView = new MockConsoleSearchView();
         var delegate = new MockConsoleSearchViewDelegate() {
             @Override
@@ -122,6 +122,23 @@ public class ConsoleSearchViewTest {
         consoleSearchView.start("--createindex", getClass().getResource("/data").getFile());
         assertEquals(Event.ON_CREATED_INDEX, delegate.getEventExecuted());
         consoleSearchView.start("hello world");
+        assertEquals(Event.ON_SEARCH_RESULT, delegate.getEventExecuted());
+    }
+
+    @Test
+    void test_search_without_results_success() {
+        var consoleSearchView = new MockConsoleSearchView();
+        var delegate = new MockConsoleSearchViewDelegate() {
+            @Override
+            public void onSearchResult(Set<File> result) {
+                super.onSearchResult(result);
+                assertEquals(0, result.size());
+            }
+        };
+        consoleSearchView.setDelegate(delegate);
+        consoleSearchView.start("--createindex", getClass().getResource("/data").getFile());
+        assertEquals(Event.ON_CREATED_INDEX, delegate.getEventExecuted());
+        consoleSearchView.start("world abacaxi");
         assertEquals(Event.ON_SEARCH_RESULT, delegate.getEventExecuted());
     }
 

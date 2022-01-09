@@ -3,6 +3,9 @@ package br.net.ricardotakemura.search.util;
 import java.io.IOException;
 import java.util.Properties;
 
+/**
+ * Classe utilitária de configuração
+ */
 public final class Configuration {
 
     private final Properties properties;
@@ -18,6 +21,10 @@ public final class Configuration {
         }
     }
 
+    /**
+     * Obtém uma instância desta classe
+     * @return Instância desta classe
+     */
     public static Configuration getInstance() {
         if (instance == null) {
             instance = new Configuration();
@@ -25,6 +32,11 @@ public final class Configuration {
         return instance;
     }
 
+    /**
+     * Obtém o valor de uma propriedade através da sua chave que está no arquivo de resource "application.properties"
+     * @param key Nome da chave
+     * @return Valor da propriedade
+     */
     public String getProperty(String key) {
         return properties.getProperty(key);
     }

@@ -8,27 +8,43 @@ import br.net.ricardotakemura.search.presenter.SearchPresenter;
 import br.net.ricardotakemura.search.util.Log;
 import br.net.ricardotakemura.search.view.SearchView;
 
+/**
+ * Classe de apresentação (implementação simples)
+ */
 public class SimpleSearchPresenter implements SearchPresenter {
 
     private SearchView searchView;
     private final SearchModel searchModel;
     private final Log log;
 
+    /**
+     * Construtor default
+     */
+    public SimpleSearchPresenter() {
+        this(null);
+    }
+
+    /**
+     * Construtor que recebe o objeto de visão (SearchView) para integração
+     * @param searchView Objeto de visão (SearchView)
+     */
     public SimpleSearchPresenter(SearchView searchView) {
         this.searchView = searchView;
         this.searchModel = new MapSearchModel();
         this.log = Log.getLog(SimpleSearchPresenter.class);
     }
 
-    public SimpleSearchPresenter() {
-        this(null);
-    }
-
+    /**
+     * @see SearchPresenter#setView(SearchView)
+     */
     @Override
     public void setView(SearchView view) {
         this.searchView = view;
     }
 
+    /**
+     * @see SearchPresenter#search(String) 
+     */
     @Override
     public void search(String words) {
         var start = System.currentTimeMillis();
@@ -39,6 +55,9 @@ public class SimpleSearchPresenter implements SearchPresenter {
         }
     }
 
+    /**
+     * @see SearchPresenter#createIndexes(File)
+     */
     @Override
     public void createIndexes(File dataDir) {
         try {
@@ -56,6 +75,9 @@ public class SimpleSearchPresenter implements SearchPresenter {
         }
     }
 
+    /**
+     * @see SearchPresenter#loadIndexes()
+     */
     @Override
     public void loadIndexes() {
         try {
