@@ -62,9 +62,7 @@ application.model.class=br.net.ricardotakemura.search.model.impl.MapSearchModel
 
 ## Executando a aplicação
 
-Se a classe `ConsoleSearchView` estiver seleciona na propriedade `application.view.class`
-
-Passo a passo:
+Se a classe `ConsoleSearchView` estiver selecionada na propriedade `application.view.class`, seguir o seguinte passo a passo:
 
 - Ir para a pasta `target` criada:
 
@@ -90,9 +88,7 @@ Sendo `"palavras"`, as palavras que serão buscadas pelo sistema, separadas por 
 
 ---
 
-Se a classe `IDESearchView` estiver seleciona na propriedade `application.view.class`
-
-Passo a passo:
+Se a classe `IDESearchView` estiver selecionada na propriedade `application.view.class`, seguir o seguinte passo a passo:
 
 - Ir para a pasta `target` criada:
 
@@ -110,9 +106,7 @@ Sendo `<diretorio>`, a pasta que contém os arquivos a serem indexados.
 
 ## Resultado dos testes
 
-Passo a passo:
-
-- Abrir o arquivo `index.html` para ver a cobertura de testes (**jacoco**):
+Abrir o arquivo `index.html` para ver a cobertura de testes (**jacoco**):
 
 ```bash
 open target/site/jacoco/index.html
@@ -120,9 +114,7 @@ open target/site/jacoco/index.html
 
 ## Javadoc
 
-Passo a passo:
-
-- Abrir o arquivo `index.html` para ver a documentação da API (**javadoc**):
+Abrir o arquivo `index.html` para ver a documentação da API (**javadoc**):
 
 ```bash
 open target/site/apidocs/index.html
