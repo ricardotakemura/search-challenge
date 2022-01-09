@@ -1,6 +1,6 @@
-#Desenvolvedor (a) de Busca - Desafio
+# Desenvolvedor (a) de Busca - Desafio
 
-##Descrição
+## Descrição
 
 O objetivo deste desafio é avaliar seu conhecimento sobre algoritmos de indexação e de recuperação de informação, avaliar a qualidade do seu código em termos de
 escrita, padronização e performance na utilização de recursos e estruturas de dados.
@@ -19,7 +19,7 @@ Pré-condições:
 - O processo de busca deve ser executado em até 0.01ms.
 - Você pode pré-processar e preparar a massa de arquivos em um outro script.
 
-##Instalação
+## Instalação
 Requisitos:
 - Java 11 ou superior (https://www.java.com/pt-BR/download/ie_manual.jsp?locale=pt_BR)
 - Maven 3.6.3 ou superior (https://maven.apache.org/download.cgi)
@@ -30,7 +30,7 @@ Construindo a aplicação:
 mvn clean install
 ```
 
-##Executando a aplicação
+## Executando a aplicação
 Passo a passo:
 - Ir para a pasta `target` criada:
 ```bash
@@ -48,14 +48,14 @@ java -jar search.jar "palavras"
 ```
 Sendo `"palavras"`, as palavras que serão buscadas pelo sistema, separadas por espaço.
 
-##Resultado dos testes
+## Resultado dos testes
 Passo a passo:
 - Abrir o arquivo `index.html` para ver a cobertura de testes (**jacoco**):
 ```bash
 open target/site/jacoco/index.html
 ```
 
-##Javadoc
+## Javadoc
 Passo a passo:
 - Abrir o arquivo `index.html` para ver a documentação da API (**javadoc**):
 ```bash
@@ -63,7 +63,7 @@ open target/site/apidocs/index.html
 ```
 
 
-##Arquitetura
+## Arquitetura
 
 Padrão de arquitetura:
 - MVP (Model View Presenter)
