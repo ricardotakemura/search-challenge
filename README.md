@@ -30,7 +30,7 @@ Pré-condições:
 
 Requisitos:
 
-- Java 11 ou superior (https://www.java.com/pt-BR/download/ie_manual.jsp?locale=pt_BR)
+- Java 14 ou superior (https://www.java.com/pt-BR/download/ie_manual.jsp?locale=pt_BR)
 - Maven 3.6.3 ou superior (https://maven.apache.org/download.cgi)
 
 Construindo a aplicação:
